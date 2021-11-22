@@ -1,0 +1,13 @@
+language: node_js
+
+node_js:
+  - 12
+
+env: 
+  - DATABASE_URL=postgresql://postgres@localhost:5432/template1
+
+before_script:
+  - psql -U postgres -d template1 -a -f sql/tables.sql
+
+services:
+  - postgresql
