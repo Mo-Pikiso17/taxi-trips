@@ -4,7 +4,7 @@ module.exports = function TaxiTrips(pool) {
 
     async function totalTripCount() {
 
-       var sumTrip =  await pool.query('SELECT sum(route_id) AS trips FROM taxi');
+       var sumTrip =  await pool.query('SELECT count(*) from trips');
         return sumTrip.rows[0];
     }
 
