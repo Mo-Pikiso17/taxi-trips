@@ -19,9 +19,11 @@ create table taxi (
 create table trips ( 
   id serial not null primary key,
   taxi_id int,
-  FOREIGN KEY(taxi_id) REFERENCES taxi(id),
+  FOREIGN KEY(taxi_id) REFERENCES taxi(id)
+  ON DELETE CASCADE,
   route_id int,
   FOREIGN KEY(route_id) REFERENCES routes(id)
+  ON DELETE CASCADE
 );
 
 

@@ -15,11 +15,20 @@ describe('Taxi Trips', function () {
 
     beforeEach(async function () {
 
-        // clean the tables before each test run?
+        // delete from taxi and FK...CASCADE ON DELETE CASCADE
+        await pool.query('DELETE FROM trips;');
 
         //insert into table?
 
-
+        await pool.query('insert into trips(taxi_id, route_id) values(1, 2)');
+        await pool.query('insert into trips(taxi_id, route_id) values(2, 2)');
+        await pool.query('insert into trips(taxi_id, route_id) values(3, 2)');
+        await pool.query('insert into trips(taxi_id, route_id) values(7, 3)');
+        await pool.query('insert into trips(taxi_id, route_id) values(8, 3)');
+        await pool.query('insert into trips(taxi_id, route_id) values(9, 3)');
+        await pool.query('insert into trips(taxi_id, route_id) values(4, 1)');
+        await pool.query('insert into trips(taxi_id, route_id) values(5, 1)');
+        await pool.query('insert into trips(taxi_id, route_id) values(6, 1)');
         
     });
 

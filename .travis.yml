@@ -8,6 +8,7 @@ env:
 
 before_script:
   - psql -U postgres -d template1 -a -f sql/tables.sql
+  - psql -U postgres -d template1 -a -f sql/data.sql
 
 services:
   - postgresql

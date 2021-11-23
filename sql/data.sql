@@ -32,12 +32,12 @@ insert into taxi(reg_number, region_id) values('GP 889', 3);
 
 -- Trips Table
 
-insert into trips(taxi_id, route_id) values(10, 2);
-insert into trips(taxi_id, route_id) values( 11, 2);
-insert into trips(taxi_id, route_id) values(12, 2);
-insert into trips(taxi_id, route_id) values (13, 3);
-insert into trips(taxi_id, route_id) values(14, 3);
-insert into trips(taxi_id, route_id) values(15, 3);
-insert into trips(taxi_id, route_id) values(16, 1);
-insert into trips(taxi_id, route_id) values (17, 1);
-insert into trips(taxi_id, route_id) values(18, 1);
+insert into trips(taxi_id, route_id) values(1, 2);
+insert into trips(taxi_id, route_id) values( 2, 2);
+insert into trips(taxi_id, route_id) values(3, 2);
+insert into trips(taxi_id, route_id) values (7, 3);
+insert into trips(taxi_id, route_id) values(8, 3);
+insert into trips(taxi_id, route_id) values(9, 3);
+insert into trips(taxi_id, route_id) values(4, 1);
+insert into trips(taxi_id, route_id) values (5, 1);
+insert into trips(taxi_id, route_id) values(6, 1);insert into trips(taxi_id, route_id) values(18, 1);
