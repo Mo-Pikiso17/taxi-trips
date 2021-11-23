@@ -30,24 +30,24 @@ module.exports = function TaxiTrips(pool) {
     async function findTripsByRegNumber(regNumber) {
 
         
-        var taxi =  await pool.query('SELECT reg_number FROM taxi WHERE reg_number = $1', [regNumber]);
-        // if(taxi.rows.length > 0){
+        var taxi =  await pool.query('SELECT id FROM taxi WHERE reg_number = $1', [regNumber]);
+        // id from taxi
+        var id = taxi.rows[0].id
 
-        //     await pool.query('SELECT region_name FROM region WHERE id= $1', [id]);
+        var trips =  await pool.query('SELECT taxi_id,route_id FROM trips WHERE taxi_id = $1', [id]);
 
-        // }
-        
+        return trips.rows   
     }
 
     async function findTripsByRegion(region) {
 
-        var place =  await pool.query('SELECT reg_number FROM taxi');
-         
-        if(place.rows.length > 0){
+        var taxi =  await pool.query('SELECT id FROM region WHERE region_name = $1', [region]);
+        // id from taxi
+        var id = taxi.rows[0].id
+       // return count
+        var regionCount =  await pool.query('SELECT count(region_id) AS rcount FROM taxi WHERE region_id = $1', [id]);
 
-            await pool.query('SELECT region_name FROM region WHERE id= $1', [region]);
-
-        }
+        return regionCount.rows[0].rcount
 
         
     }

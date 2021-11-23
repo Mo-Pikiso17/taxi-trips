@@ -85,9 +85,9 @@ describe('Taxi Trips', function () {
     it('should find all the trips for a reg number', async function () {
 
         const taxiTrips = TaxiTrips(pool);
-        
-        assert.deepStrictEqual([], taxiTrips.findTripsByRegNumber('...'));
-        assert.deepStrictEqual([], taxiTrips.findTripsByRegNumber('***'));
+
+        assert.deepStrictEqual([{ route_id: 2, taxi_id: 1 }], await taxiTrips.findTripsByRegNumber('CA 125'));
+        assert.deepStrictEqual([{ route_id: 1, taxi_id: 5 }], await taxiTrips.findTripsByRegNumber('DBN 124'));
 
     });
 
@@ -95,18 +95,17 @@ describe('Taxi Trips', function () {
 
         const taxiTrips = TaxiTrips(pool);
 
-        assert.deepStrictEqual([], taxiTrips.findTripsByRegion('Cape Town').length);
-        assert.deepStrictEqual([], taxiTrips.findTripsByRegion('Gauteng').length);
-        assert.deepStrictEqual([], taxiTrips.findTripsByRegion('Gauteng').length);
+        assert.deepStrictEqual('3', await taxiTrips.findTripsByRegion('Cape Town'));
+        assert.deepStrictEqual('3', await taxiTrips.findTripsByRegion('Gauteng'));
+        assert.deepStrictEqual('3', await taxiTrips.findTripsByRegion('Gauteng'));
 
     });
 
     it('find the total income for a given reg number', async function () {
 
         const taxiTrips = TaxiTrips(pool);
-        assert.deepStrictEqual(0, taxiTrips.findIncomeByRegNumber('...').length);
-        assert.deepStrictEqual(0, taxiTrips.findIncomeByRegNumber('***').length);
-
+        assert.deepStrictEqual('12.00', await taxiTrips.findIncomeByRegNumber('CA 123'));
+        assert.deepStrictEqual('14.50', await taxiTrips.findIncomeByRegNumber('DBN 123'));
     });
 
     it('find the total income for each taxi', async function () {

@@ -7,8 +7,8 @@ env:
   - DATABASE_URL=postgresql://postgres@localhost:5432/template1
 
 before_script:
-  - psql -U postgres -d template1 -a -f sql/tables.sql
-  - psql -U postgres -d template1 -a -f sql/data.sql
+  - psql -U postgres -d template1 -a -f ./sql/tables.sql
+  - psql -U postgres -d template1 -a -f ./sql/data.sql
 
 services:
   - postgresql
