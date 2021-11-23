@@ -8,15 +8,22 @@ module.exports = function TaxiTrips(pool) {
         return sumTrip.rows[0];
     }
 
-    async function findAllRegions(id) {
+    async function findAllRegions() {
 
-        var regionId =  await pool.query('SELECT region_id FROM taxi WHERE region_id = $1', [id]);
+        var region = await pool.query('SELECT region_name FROM region');
+        return region.rows
 
-        if(regionId.rows.length > 0){
+}
 
-            await pool.query('SELECT region_name FROM region WHERE id= $1', [id]);
+    async function findTaxisForRegion(region){
 
-        }
+        var place =  await pool.query('SELECT id FROM region WHERE region_name = $1', [region]);
+        var placeId = place.rows[0].id;
+
+        var taxi =  await pool.query('SELECT reg_number FROM taxi WHERE region_id = $1', [placeId]);
+
+        return taxi.rows;
+
     }
 
 
@@ -62,6 +69,7 @@ module.exports = function TaxiTrips(pool) {
 
     return{
         totalTripCount,
+        findTaxisForRegion,
         findAllRegions,
         findTripsByRegNumber,
         findTripsByRegion,

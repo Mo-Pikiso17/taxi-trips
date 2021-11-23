@@ -5,7 +5,7 @@ let TaxiTrips = require("../taxi-trips");
 const pg = require("pg");
 const Pool = pg.Pool;
 
-const connectionString = process.env.DATABASE_URL || 'postgresql://localhost:5432/taxi_base';
+const connectionString = process.env.DATABASE_URL || 'postgresql://postgres:moddy123@localhost:5432/taxi_base';
 
 const pool = new Pool({
     connectionString
@@ -36,24 +36,49 @@ describe('Taxi Trips', function () {
 
         const taxiTrips = TaxiTrips(pool);
 
-        assert.equal(0, taxiTrips.totalTripCount());
-    
+        assert.deepEqual({ count: '9' }, await taxiTrips.totalTripCount());
+
     });
 
     it('should find all the regions', async function () {
 
         const taxiTrips = TaxiTrips(pool);
 
-        assert.deepStrictEqual([], taxiTrips.findAllRegions());
+        assert.deepStrictEqual([{ region_name: 'Durban' }, { region_name: 'Cape Town' }, { region_name: 'Gauteng' }], await taxiTrips.findAllRegions());
 
     });
 
     it('should find all the taxis for a region', async function () {
         const taxiTrips = TaxiTrips(pool);
 
-        assert.deepStrictEqual([], taxiTrips.findTaxisForRegion('Durban'));
-        assert.deepStrictEqual([], taxiTrips.findTaxisForRegion('Cape Town'));
-        assert.deepStrictEqual([], taxiTrips.findTaxisForRegion('Gauteng'));
+        assert.deepStrictEqual([{
+            reg_number: "DBN 123"
+        },
+            {
+            reg_number: "DBN 124"
+        },
+         {
+            reg_number: "DBN 128"
+        }], await taxiTrips.findTaxisForRegion('Durban'));
+        assert.deepStrictEqual([{
+            reg_number: "CA 125"
+        },
+            {
+            reg_number: "CA 126"
+        },
+         {
+            reg_number: "CA 123"
+        }], await taxiTrips.findTaxisForRegion('Cape Town'));
+
+        assert.deepStrictEqual([{
+            reg_number: "GP 123"
+        },
+            {
+                reg_number: "GP 888"
+            },
+         {
+            reg_number: "GP 889"
+        }], await taxiTrips.findTaxisForRegion('Gauteng'));
 
     })
 
